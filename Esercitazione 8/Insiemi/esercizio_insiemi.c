@@ -6,7 +6,17 @@
 
 
 Insieme* intersezione(Insieme* i1, Insieme* i2){
-  // Da implementare
+  if(estVuoto(i1)){ return i1;}
+  if(estVuoto(i2)){ return i2;}
+  //Gestiti i casi di ins vuoti
+  IteratoreInsieme *r = creaIteratoreInsieme(i1);
+  do{
+	  T value = next(r);
+	  printf("%d\n" ,membro(i2, value));
+	  if(!membro(i2, value)){
+		elimina(i1, value);
+	  }  
+  }while(hasNext(r));
   return i1;
 }
 
