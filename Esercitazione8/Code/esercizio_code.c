@@ -1,14 +1,17 @@
 #include "esercizio_code.h"
 //Implementazione con side-effect senza condivisione di memoria.
+//Mediante SCL.
 
 Coda* codaVuota() {
-  // IMPLEMENTARE
-  return NULL;
+  Coda *c = (Coda*)malloc(sizeof(Coda));
+  c->size = 1;
+  c->data = (T*)malloc(sizeof(T)*c->size);
+  c->nelem = 0;
+  return c;
 }
 
 int estVuota(Coda* c) {
-  // IMPLEMENTARE
-  return true;
+  return c->nelem == 0;
 }
 
 void inCoda(Coda* c, T e){
@@ -20,10 +23,6 @@ void outCoda(Coda* c){
   // IMPLEMENTARE
   return;
 }
-
-
-
-
 
 T primo(Coda* c){
   if (c->nelem == 0){
