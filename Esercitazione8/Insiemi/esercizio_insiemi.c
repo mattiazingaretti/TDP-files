@@ -6,28 +6,50 @@
 
 
 Insieme* intersezione(Insieme* i1, Insieme* i2){
-  if(estVuoto(i1)){ return i1;}
-  if(estVuoto(i2)){ return i2;}
-  //Gestiti i casi di ins vuoti
-  IteratoreInsieme *r = creaIteratoreInsieme(i1);
-  do{
-	  T value = next(r);
-	  printf("%d\n" ,membro(i2, value));
-	  if(!membro(i2, value)){
-		elimina(i1, value);
-	  }  
-  }while(hasNext(r));
-  return i1;
+    Insieme *ris = insiemeVuoto();
+    IteratoreInsieme *it = creaIteratoreInsieme(i1);
+    T value;
+    while(hasNext(it)){ 
+        value = next(it);
+        if (membro(i2,value)) {
+            inserisci(ris, value);
+        } 
+    }
+    return ris;
 }
 
 Insieme* unione(Insieme* i1, Insieme* i2){
-  // Da implementare
-  return i1;
+    Insieme *ris = insiemeVuoto();
+    IteratoreInsieme *it1 = creaIteratoreInsieme(i1);
+    IteratoreInsieme *it2 = creaIteratoreInsieme(i2);
+    T value1,value2;
+    while(hasNext(it1)){
+        value1 = next(it1); 
+        inserisci(ris, value1);
+    }
+    while(hasNext(it2)){
+            value2 = next(it2);
+            inserisci(ris, value2);
+        }
+    return ris;
 }
 
 bool uguali(Insieme* i1, Insieme* i2){
-  // Da implementare
-  return false;
+    IteratoreInsieme *it = creaIteratoreInsieme(i1);
+    IteratoreInsieme *it1 = creaIteratoreInsieme(i2);
+    while(hasNext(it)){
+        T value = next(it);
+        if(membro(i2, value) == 0){
+            return false;
+        }
+    }
+    while(hasNext(it1)){
+        T value1 = next(it1);
+        if(membro(i1, value1)== 0){
+            return false;
+        } 
+    }
+    return true;
 }
 
 
@@ -66,12 +88,19 @@ void inserisci(Insieme *ins, T e) {
 // O(n)
 void elimina(Insieme *ins, T e) {
     NodoSCL* p = *ins;
-    while (p->next!=NULL && p->next->info!=e)
+    if(p->info != e){
+        while (p->next!=NULL && p->next->info!=e ){
         p = p->next;
-    if (p->next!=NULL) {
-        NodoSCL *q = p->next;
-        p->next = p->next->next;
-        free(q);
+        }
+        if (p->next!=NULL) {
+            NodoSCL *q = p->next;
+            p->next = p->next->next;
+            free(q);
+        }
+    }
+    else{
+        p = p->next;
+        *ins = p;
     }
 }
 
