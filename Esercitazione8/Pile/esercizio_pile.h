@@ -6,7 +6,7 @@
 
 typedef int T;
 
-struct NodoSCL {
+typedef struct NodoSCL {
 	T info;
 	struct NodoSCL *next;
 };

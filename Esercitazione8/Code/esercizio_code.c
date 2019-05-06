@@ -1,4 +1,5 @@
 #include "esercizio_code.h"
+//Implementazione con side-effect senza condivisione di memoria.
 
 Coda* codaVuota() {
   // IMPLEMENTARE
