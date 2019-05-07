@@ -16,14 +16,17 @@ int estVuota(Coda* c) {
 
 void inCoda(Coda* c, T e){
     c->nelem += 1;
-    c->size += 1;
     realloc(c->data,c->size);
     c->data[c->nelem-1] = e;
     return;
 }
 
 void outCoda(Coda* c){
-
+    int i;
+    for(i= 0; i < c->nelem-1;i++){
+        c->data[i] = c->data[i+1];
+    }
+    c->nelem -= 1;
     return;
 }
 
