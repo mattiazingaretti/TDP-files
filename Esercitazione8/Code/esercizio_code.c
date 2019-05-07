@@ -15,13 +15,16 @@ int estVuota(Coda* c) {
 }
 
 void inCoda(Coda* c, T e){
-  // IMPLEMENTARE
-  return;
+    c->nelem += 1;
+    c->size += 1;
+    realloc(c->data,c->size);
+    c->data[c->nelem-1] = e;
+    return;
 }
 
 void outCoda(Coda* c){
-  // IMPLEMENTARE
-  return;
+
+    return;
 }
 
 T primo(Coda* c){
@@ -69,7 +72,7 @@ void printCoda(Coda* c){
   IteratoreCoda* it = creaIteratoreCoda(c);
   while(hasNext(it)){
     printInfo(next(it));
-    printf(" ");    
+    printf(" ");
   }
   printf("\n");
 }
