@@ -1,7 +1,13 @@
 #include "esercizio_pile.h"
 
+//Scelte implementative:
+//rappresentazione con SCL funzionale con condivisione di memoria
+
 Pila pilaVuota() {
-	return NULL;
+	Pila p = (Pila) malloc(sizeof(Pila));
+	p->info = 0;
+	p->next = NULL;   
+	return p;
 }
 
 bool estVuota(Pila p) {
@@ -9,17 +15,20 @@ bool estVuota(Pila p) {
 }
 
 Pila push(Pila p,T e){
-	//Implementare
-	return NULL;
+	Pila ris = pilaVuota();
+	ris->info = e;
+	ris->next = p;
+    return ris;
 }
 
 Pila pop(Pila p){
-	// Implementare
-	return NULL;
+	Pila ris = pilaVuota();
+	ris->info = p->next->info;
+	ris = p->next;
+    return ris;
 }
 
 T top(Pila p){
-	// Implementare
 	if(p==NULL){
 		printf("ERRORE: pila vuota!\n");
 		exit(1);
@@ -28,7 +37,6 @@ T top(Pila p){
 }
 
 // Funzioni ausiliarie
-
 void printInfo(T e){
 	printf("%d", e);
 }
