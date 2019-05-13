@@ -23,7 +23,24 @@ TipoInfoAlbero DimensioneAlbero(TipoAlbero a){
 }
 
 void sottoMassimo(TipoAlbero a , TipoInfoAlbero *m){
-	
+	//visita sx radice e poi dx
+	if(!estVuoto(sinistro(a))){
+		if(radice(sinistro(a)) >= *m){
+			*m = radice(sinistro(a));
+		}
+		sottoMassimo(sinistro(a), m);
+	}
+	if(!estVuoto(a)){
+		if(radice(a) >= *m ){
+			*m = radice(a);
+		}
+	}
+	if(!estVuoto(destro(a))){
+		if(radice(destro(a)) >= *m){
+			*m = radice(destro(a));
+		}
+		sottoMassimo(destro(a), m);
+	}
 }
 
 TipoInfoAlbero TrovaMassimo(TipoAlbero a){
