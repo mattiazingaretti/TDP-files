@@ -53,22 +53,62 @@ TipoInfoAlbero TrovaMassimo(TipoAlbero a){
 	return massimo;
 }
 
+void postOrdine(TipoAlbero a , const TipoInfoAlbero min , const TipoInfoAlbero max , TipoInfoAlbero *c){
+	if(!estVuoto(sinistro(a))){
+		if(radice(sinistro(a)) < max && radice(sinistro(a)) > min ){
+			*c += 1;
+		}
+		postOrdine(sinistro(a), min , max , c);
+	}
+	if(!estVuoto(destro(a))){
+		if(radice(destro(a)) < max && radice(destro(a)) > min ){
+			*c += 1;
+		}
+		postOrdine(destro(a), min , max , c);
+	}
+}
+
 TipoInfoAlbero contaFraMinMax(TipoAlbero a, const TipoInfoAlbero min, const TipoInfoAlbero max){
-	// IMPLEMENTARE
-	return 0;
+	//Provo a implementare una visita in post ordine
+	TipoInfoAlbero counter = 0;
+	if(! estVuoto(a) && radice(a) < max && radice(a) > min){
+		counter += 1;
+	}	
+	postOrdine(a, min , max , &counter);
+	return counter;
+}
+
+void contaFoglie(TipoAlbero a, TipoInfoAlbero *c){
+	if(estVuoto(sinistro(a)) && estVuoto(destro(a))){
+		*c += radice(a);	
+	}
+	if(!estVuoto(sinistro(a))){
+		contaFoglie(sinistro(a), c);
+	}
+	if(!estVuoto(destro(a))){
+		contaFoglie(destro(a), c);
+	}
 }
 
 TipoInfoAlbero sommaValoriFoglie(TipoAlbero a){
-	// IMPLEMENTARE
-	return 0;
+	TipoInfoAlbero counter = 0;
+	contaFoglie(a, &counter);
+	return counter;
 }
 
 void visitaAlberoBinarioRicerca(TipoAlbero a){
-	// IMPLEMENTARE
-	return;
+	if(! estVuoto(sinistro(a))){
+		printf("%d\n", radice(a));
+		visitaAlberoBinarioRicerca(sinistro(a));
+	}
+	if(!estVuoto(a)){
+
+	}
+	if(! estVuoto(destro(a))){
+		visitaAlberoBinarioRicerca(destro(a));
+	}
+
 }
-
-
 
 TipoAlbero albBinVuoto () {
 	return 0;
