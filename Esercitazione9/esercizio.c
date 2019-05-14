@@ -96,18 +96,17 @@ TipoInfoAlbero sommaValoriFoglie(TipoAlbero a){
 	return counter;
 }
 
+
 void visitaAlberoBinarioRicerca(TipoAlbero a){
-	if(! estVuoto(sinistro(a))){
-		printf("%d\n", radice(a));
+	if(!estVuoto(sinistro(a))){
 		visitaAlberoBinarioRicerca(sinistro(a));
 	}
 	if(!estVuoto(a)){
-
+		printf("%d ", radice(a));
 	}
-	if(! estVuoto(destro(a))){
+	if(!estVuoto(destro(a))){
 		visitaAlberoBinarioRicerca(destro(a));
 	}
-
 }
 
 TipoAlbero albBinVuoto () {

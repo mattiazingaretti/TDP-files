@@ -44,10 +44,27 @@ int main(){
 	/* ---------------------------------------------- */
         /*            test visitaAlberoBinarioRicerca()   */
 	/* ---------------------------------------------- */
+	
+	//Creo un caZzo di albero binario di ricerca...
+	/* Creazione albero binario:   */
+	/*		 1	       */
+	/*	     /       \	       */
+	/*	   -2         5	       */
+	/*	  /   \     /    \     */
+	/*	 -9    -1   4     6    */
+	TipoAlbero A2 = creaAlbBin( -9  , albBinVuoto(), albBinVuoto() ) ;
+	TipoAlbero B2 = creaAlbBin( -1 , albBinVuoto(), albBinVuoto() ) ;
+	TipoAlbero C2 = creaAlbBin( 4  , albBinVuoto(), albBinVuoto() ) ;
+	TipoAlbero D2 = creaAlbBin( 6 , albBinVuoto(), albBinVuoto() ) ;
+	TipoAlbero E2 = creaAlbBin( -2, A2, B2);
+	TipoAlbero F2 = creaAlbBin( 5  , C2, D2);
+	TipoAlbero G2 = creaAlbBin( 1  , E2, F2);
+	TipoAlbero albero2 = G2;
+	
 	printf("visitaAlberoBinarioRicerca studente\n");
-	visitaAlberoBinarioRicerca(albero);
+	visitaAlberoBinarioRicerca(albero2);
 	printf("visitaAlberoBinarioRicerca soluzione\n");
-	visitaAlberoBinarioRicerca_soluzione(albero);
+	visitaAlberoBinarioRicerca_soluzione(albero2);
 	printf("\n");
 
 }
