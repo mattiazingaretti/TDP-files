@@ -67,7 +67,7 @@ TipoListaSCL* listaNodiFoglia(TipoAlbero a){
 	if(estVuoto(a)){return NULL;}
 	if(estVuoto(sinistro(a)) && estVuoto(destro(a))){
 		TipoListaSCL *l = listPushBack(l, radice(a));
-		
+		return  concatena( listaNodiFoglia(destro(a)), listaNodiFoglia(sinistro(a)) );
 	}
 	//return  concatena( listaNodiFoglia(destro(a)), listaNodiFoglia(sinistro(a)) );
 }
