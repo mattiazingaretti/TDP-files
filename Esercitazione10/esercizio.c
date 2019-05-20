@@ -45,9 +45,25 @@ int singleChildSum(TipoAlbero a){
 	return singleChildSum(sinistro(a)) + singleChildSum(destro(a));
 }
 
+TipoListaSCL * concatena(TipoListaSCL *l1, TipoListaSCL *l2){
+	TipoListaSCL *ris = creaLista();
+	ris = listPushBack(l1, l2->value);
+	printList(ris);
+	return ris;
+}
+
 TipoListaSCL* listaNodiFoglia(TipoAlbero a){
-	// IMPLEMENTARE
-	return NULL;
+	TipoListaSCL *l = creaLista();
+	/*TipoListaSCL *l1 = creaLista();
+	l1 = listPushFront(l1, 5);
+	l = listPushFront(l , 6);
+	l = concatena(l1, l);*/
+	if(estVuoto(a)){return NULL;}
+	if(estVuoto(sinistro(a)) && estVuoto(destro(a))){
+		l = listPushBack(l, radice(a));
+		return concatena(l , concatena(listaNodiFoglia(sinistro(a)), listaNodiFoglia(destro(a)))) ;
+	}
+	return concatena(listaNodiFoglia(sinistro(a)) , listaNodiFoglia(destro(a)));
 }
 
 Coda* codaNodiDueFigli(TipoAlbero a){
