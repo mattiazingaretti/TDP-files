@@ -1,18 +1,51 @@
 #include "esercizio.h"
 
-int ricercaLivello(TipoAlbero a, TipoInfoAlbero v, int livello_corrente){
-	// IMPLEMENTARE
-	return -2;
+void cercaPerLivelli(TipoAlbero a, TipoInfoAlbero v , int l, int* ris){
+	if(estVuoto(a)){ *ris = 0;}
+	if(radice(a) == v){
+		*ris = l ;
+		return;
+	}
+	if(!estVuoto(sinistro(a))){
+		cercaPerLivelli(sinistro(a), v , l+1, ris);
+	}
+	if(!estVuoto(destro(a))){
+			cercaPerLivelli(destro(a), v , l+1, ris);
+	}
 }
 
+int ricercaLivello(TipoAlbero a, TipoInfoAlbero v, int livello_corrente){
+	int ris = 0;
+	cercaPerLivelli(a, v, livello_corrente, &ris);
+	return ris;
+}
+
+
 int verificaNodi(TipoAlbero a, int livello){
-	// IMPLEMENTARE
-	return false;
+	if(estVuoto(a)){return 0;}
+	if(livello%2 == 0 && radice(a)%2 == 0){
+			return 1 + verificaNodi(sinistro(a), livello+1) + verificaNodi(destro(a), livello+1);
+		}
+	if(livello%2 != 0 && radice(a)%2 != 0){
+			return 1 + verificaNodi(sinistro(a), livello+1) + verificaNodi(destro(a), livello+1);
+		}
+	else{
+		return verificaNodi(sinistro(a), livello+1) + verificaNodi(destro(a), livello+1);
+	}
 }
 
 int singleChildSum(TipoAlbero a){
-	// IMPLEMENTARE
-	return 0;
+	if(estVuoto(a)){return 0;}
+	if(!estVuoto(sinistro(a))){
+		if(sinistro(a) == NULL || destro(a)== NULL){
+			return radice(a) + singleChildSum(sinistro(a));
+		}else return singleChildSum(sinistro(a));
+	}
+	if(!estVuoto(destro(a))){
+		if(sinistro(a) == NULL || destro(a)== NULL){
+			return radice(a) + singleChildSum(destro(a));
+		}else return singleChildSum(destro(a));
+	}
 }
 
 TipoListaSCL* listaNodiFoglia(TipoAlbero a){
