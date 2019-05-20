@@ -46,24 +46,30 @@ int singleChildSum(TipoAlbero a){
 }
 
 TipoListaSCL * concatena(TipoListaSCL *l1, TipoListaSCL *l2){
-	TipoListaSCL *ris = creaLista();
-	ris = listPushBack(l1, l2->value);
-	printList(ris);
-	return ris;
+	TipoListaSCL *p = l1;
+	while(l1->next != NULL){
+		l1 = l1->next;
+	}
+		l1->next = l2;
+	return p;
 }
 
 TipoListaSCL* listaNodiFoglia(TipoAlbero a){
-	TipoListaSCL *l = creaLista();
-	/*TipoListaSCL *l1 = creaLista();
-	l1 = listPushFront(l1, 5);
-	l = listPushFront(l , 6);
-	l = concatena(l1, l);*/
+/*
+	TipoListaSCL *l1 = creaLista();
+	TipoListaSCL *l3 = creaLista();
+	l1 = listPushFront(l1, 6);
+	l1 = listPushFront(l1, 8);
+	l3 = listPushFront(l3, 9);
+	l3 = concatena(concatena(l1, l3) , l1);
+	printList(l3);
+*/
 	if(estVuoto(a)){return NULL;}
 	if(estVuoto(sinistro(a)) && estVuoto(destro(a))){
-		l = listPushBack(l, radice(a));
-		return concatena(l , concatena(listaNodiFoglia(sinistro(a)), listaNodiFoglia(destro(a)))) ;
+		TipoListaSCL *l = listPushBack(l, radice(a));
+		
 	}
-	return concatena(listaNodiFoglia(sinistro(a)) , listaNodiFoglia(destro(a)));
+	//return  concatena( listaNodiFoglia(destro(a)), listaNodiFoglia(sinistro(a)) );
 }
 
 Coda* codaNodiDueFigli(TipoAlbero a){
