@@ -36,16 +36,13 @@ int verificaNodi(TipoAlbero a, int livello){
 
 int singleChildSum(TipoAlbero a){
 	if(estVuoto(a)){return 0;}
-	if(!estVuoto(sinistro(a))){
-		if(sinistro(a) == NULL || destro(a)== NULL){
-			return radice(a) + singleChildSum(sinistro(a));
-		}else return singleChildSum(sinistro(a));
+	if(estVuoto(sinistro(a)) && !estVuoto(destro(a))){
+		return radice(a) + singleChildSum(destro(a));
 	}
-	if(!estVuoto(destro(a))){
-		if(sinistro(a) == NULL || destro(a)== NULL){
-			return radice(a) + singleChildSum(destro(a));
-		}else return singleChildSum(destro(a));
+	if(estVuoto(destro(a)) && !estVuoto(sinistro(a))){
+		return radice(a) + singleChildSum(sinistro(a));
 	}
+	return singleChildSum(sinistro(a)) + singleChildSum(destro(a));
 }
 
 TipoListaSCL* listaNodiFoglia(TipoAlbero a){
