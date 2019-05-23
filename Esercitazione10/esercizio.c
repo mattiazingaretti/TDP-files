@@ -46,30 +46,55 @@ int singleChildSum(TipoAlbero a){
 }
 
 TipoListaSCL * concatena(TipoListaSCL *l1, TipoListaSCL *l2){
+	TipoListaSCL *ris = creaLista();
+	//Purtroppo non hanno implementato un iteratore per le liste
+	//Quindi scorro usando la scelta implementativa delle SCL sulle liste.
+	if(l1 == NULL ){ return l2;}
+	if(l2 == NULL ){ return l1;}
 	TipoListaSCL *p = l1;
-	while(l1->next != NULL){
-		l1 = l1->next;
+	while(p != NULL){
+		ris = listPushBack(ris, p->value);
+		p = p->next;
 	}
-		l1->next = l2;
-	return p;
+	TipoListaSCL *p1 = l2;
+	while(p1 != NULL){
+		ris = listPushBack(ris, p1->value);
+		p1 = p1->next;
+	}
+	printf("Concatenato \n");
+	return ris;
+}
+
+TipoListaSCL * append(TipoListaSCL *l , TipoInfoAlbero i){
+	if(lunghezzaLista(l) > 0){
+		TipoListaSCL *ris = creaLista();
+		ris = listPushBack(ris, i);
+		return ris;
+	}else{
+		l = listPushBack(l , i);
+		return l;
+	}
 }
 
 TipoListaSCL* listaNodiFoglia(TipoAlbero a){
 /*
+DEBUG SULLA FUNZIONE CONCATENA
 	TipoListaSCL *l1 = creaLista();
 	TipoListaSCL *l3 = creaLista();
 	l1 = listPushFront(l1, 6);
-	l1 = listPushFront(l1, 8);
-	l3 = listPushFront(l3, 9);
-	l3 = concatena(concatena(l1, l3) , l1);
+	l1 = listPushFront(l1, 5);
+	l3 = listPushFront(l3, 8);
+	l3 = listPushFront(l3, 7);
+	TipoListaSCL *l4 = creaLista(); 
+	l3 = concatena(concatena(l1, l3), l3);
 	printList(l3);
 */
 	if(estVuoto(a)){return NULL;}
 	if(estVuoto(sinistro(a)) && estVuoto(destro(a))){
-		TipoListaSCL *l = listPushBack(l, radice(a));
-		return  concatena( listaNodiFoglia(destro(a)), listaNodiFoglia(sinistro(a)) );
+		TipoListaSCL *l = append(NULL, radice(a));
+		return concatena( l, concatena( listaNodiFoglia(sinistro(a)), listaNodiFoglia(destro(a)) )   ) ;
 	}
-	//return  concatena( listaNodiFoglia(destro(a)), listaNodiFoglia(sinistro(a)) );
+	return  concatena(listaNodiFoglia(sinistro(a)) , listaNodiFoglia(destro(a)));
 }
 
 Coda* codaNodiDueFigli(TipoAlbero a){
