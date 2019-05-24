@@ -56,50 +56,40 @@ TipoListaSCL * concatena(TipoListaSCL *l1, TipoListaSCL *l2){
 		ris = listPushBack(ris, p->value);
 		p = p->next;
 	}
-	TipoListaSCL *p1 = l2;
-	while(p1 != NULL){
-		ris = listPushBack(ris, p1->value);
-		p1 = p1->next;
+	p = l2;
+	while(p != NULL){
+		ris = listPushBack(ris, p->value);
+		p = p->next;
 	}
-	printf("Concatenato \n");
 	return ris;
 }
 
-TipoListaSCL * append(TipoListaSCL *l , TipoInfoAlbero i){
-	if(lunghezzaLista(l) > 0){
-		TipoListaSCL *ris = creaLista();
-		ris = listPushBack(ris, i);
-		return ris;
-	}else{
-		l = listPushBack(l , i);
-		return l;
-	}
-}
-
 TipoListaSCL* listaNodiFoglia(TipoAlbero a){
-/*
-DEBUG SULLA FUNZIONE CONCATENA
-	TipoListaSCL *l1 = creaLista();
-	TipoListaSCL *l3 = creaLista();
-	l1 = listPushFront(l1, 6);
-	l1 = listPushFront(l1, 5);
-	l3 = listPushFront(l3, 8);
-	l3 = listPushFront(l3, 7);
-	TipoListaSCL *l4 = creaLista(); 
-	l3 = concatena(concatena(l1, l3), l3);
-	printList(l3);
-*/
 	if(estVuoto(a)){return NULL;}
 	if(estVuoto(sinistro(a)) && estVuoto(destro(a))){
-		TipoListaSCL *l = append(NULL, radice(a));
-		return concatena( l, concatena( listaNodiFoglia(sinistro(a)), listaNodiFoglia(destro(a)) )   ) ;
+		return concatena( listPushBack(NULL, radice(a)) , concatena( listaNodiFoglia(sinistro(a)), listaNodiFoglia(destro(a)) )   ) ;
 	}
 	return  concatena(listaNodiFoglia(sinistro(a)) , listaNodiFoglia(destro(a)));
 }
 
+void faiCose(Coda **c , TipoAlbero  a){
+	bool check = true;
+	if(estVuoto(a)){check = false;}
+	if(check){
+		if( !estVuoto(sinistro(a)) && !estVuoto(destro(a)) ){
+			inCoda(*c , radice(a));
+		}
+		faiCose(c, sinistro(a));
+		faiCose(c, destro(a));
+	}
+	
+	
+}
+
 Coda* codaNodiDueFigli(TipoAlbero a){
-	// IMPLEMENTARE
-	return NULL;
+	Coda *c = codaVuota();
+	faiCose(&c , a);
+	return c;
 }
 
 TipoListaSCL* listaPercorso(TipoAlbero a){
