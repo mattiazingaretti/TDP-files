@@ -82,8 +82,6 @@ void faiCose(Coda **c , TipoAlbero  a){
 		faiCose(c, sinistro(a));
 		faiCose(c, destro(a));
 	}
-	
-	
 }
 
 Coda* codaNodiDueFigli(TipoAlbero a){
@@ -92,9 +90,16 @@ Coda* codaNodiDueFigli(TipoAlbero a){
 	return c;
 }
 
+TipoListaSCL* accozzaDati(TipoListaSCL **l , TipoAlbero a ){
+	if(estVuoto(a)){return NULL;}
+	*l = listPushBack(*l , radice(a));
+	
+}
+
 TipoListaSCL* listaPercorso(TipoAlbero a){
-	// IMPLEMENTARE
-	return NULL;
+	TipoListaSCL *l = creaLista();
+	tragitto(&l , a);
+	return l;
 }
 
 
